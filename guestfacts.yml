@@ -1,0 +1,25 @@
+---
+# check out a vcenter host
+
+- hosts: localhost
+  connection: local
+  vars_prompt:
+    - name: "vsphere_user"
+      prompt: "Enter username"
+      private: no
+
+    - name: "vsphere_pass"
+      prompt: "Enter password"
+      private: yes
+
+    - name: "vm_name"
+      prompt: "Enter VM name"
+      private: no
+
+  tasks:
+    - vsphere_guest:
+        vcenter_hostname: l01pwvcen01.corp.local
+        username: "{{ vsphere_user }}"
+        password: "{{ vsphere_pass }}"
+        guest: "{{ vm_name }}"
+        vmware_guest_facts: yes

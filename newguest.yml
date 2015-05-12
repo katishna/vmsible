@@ -1,0 +1,48 @@
+---
+# build a new guest
+
+- hosts: localhost
+  connection: local
+  vars_prompt:
+    - name: "vsphere_user"
+      prompt: "Enter username"
+      private: no
+
+    - name: "vsphere_pass"
+      prompt: "Enter password"
+      private: yes
+
+    - name: "vm_name"
+      prompt: "Enter new VM name, all caps"
+      private: no
+
+  tasks:
+    - vsphere_guest:
+        vcenter_hostname: l01pwvcen01.corp.local
+        username: "{{ vsphere_user }}"
+        password: "{{ vsphere_pass }}"
+        guest: "{{ vm_name }}"
+        vmware_guest_facts: no
+        state: powered_off
+        vm_extra_config:
+          vcpu.hotadd: yes
+          mem.hotadd: yes
+          notes: testing ansible with vcenter
+        vm_disk:
+          disk1:
+            size_gb: 40
+            type: thick
+            datastore: L01DSC1_40K
+        vm_nic:
+          nic1:
+            type: e1000
+            network: 10.16.1.x 161
+            network_type: standard
+        vm_hardware:
+          memory_mb: 2048
+          num_cpus: 1
+          osid: rhel6_64Guest
+          scsi: paravirtual
+        esxi:
+          datacenter: L01C2-ORP
+          hostname: l01piesxorp10.corp.local
