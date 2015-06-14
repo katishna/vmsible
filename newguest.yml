@@ -18,7 +18,7 @@
 
   tasks:
     - vsphere_guest:
-        vcenter_hostname: l01pwvcen01.corp.local
+        vcenter_hostname: vcenter01.example.com
         username: "{{ vsphere_user }}"
         password: "{{ vsphere_pass }}"
         guest: "{{ vm_name }}"
@@ -32,11 +32,11 @@
           disk1:
             size_gb: 40
             type: thick
-            datastore: L01DSC1_40K
+            datastore: MY_DATASTORE
         vm_nic:
           nic1:
             type: e1000
-            network: 10.16.1.x 161
+            network: MY_NETWORK
             network_type: standard
         vm_hardware:
           memory_mb: 2048
@@ -44,5 +44,5 @@
           osid: rhel6_64Guest
           scsi: paravirtual
         esxi:
-          datacenter: L01C2-ORP
-          hostname: l01piesxorp10.corp.local
+          datacenter: MY_DC
+          hostname: MY_ESXI_HOST
