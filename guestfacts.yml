@@ -18,7 +18,7 @@
 
   tasks:
     - vsphere_guest:
-        vcenter_hostname: l01pwvcen01.corp.local
+        vcenter_hostname: vcenter01.example.com
         username: "{{ vsphere_user }}"
         password: "{{ vsphere_pass }}"
         guest: "{{ vm_name }}"
